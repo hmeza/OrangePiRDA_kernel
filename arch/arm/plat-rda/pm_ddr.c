@@ -166,14 +166,13 @@ static const struct file_operations pm_ddr_debug_fops = {
 
 static int __init pm_ddr_init(void)
 {
-	struct dentry *d;
-
 	if (PM_DDR_MASTER_MAX > 64) {
 		pr_err("too many ddr masters\n");
 		return -ENOMEM;
 	}
 	spin_lock_init(&pm_ddr_lock);
 #ifdef CONFIG_DEBUG_FS
+	struct dentry *d;
 	d = debugfs_create_file("ddr_master", S_IRUGO, NULL, NULL,
 			&pm_ddr_debug_fops);
 	if (!d) {
